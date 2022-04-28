@@ -118,10 +118,10 @@ export default {
     },
     handleDelete(index, row) {
       let confirmDelete = this.$confirm('确定要删除该用户吗，此操作不可逆');
-      confirmDelete.then(() => {
-        let res = deleteUser({id: row.id});
+      confirmDelete.then(async () => {
+        let res =await deleteUser({id: row.id});
         this.$alert('删除成功!');
-        this.loadUser(this.currentPage);
+        await this.loadUser(this.currentPage);
       })
     },
     onCurrentChange(page) {
@@ -131,9 +131,9 @@ export default {
     cancelChange() {
       this.showModal = false;
     },
-    refresh() {
+    async refresh() {
       this.showModal = false;
-      this.loadUser(this.currentPage);
+      await this.loadUser(this.currentPage);
     }
   }
 }

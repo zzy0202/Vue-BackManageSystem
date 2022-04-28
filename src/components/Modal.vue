@@ -4,7 +4,7 @@
       <span class="title">{{ title }}</span>
       <el-form ref="form" :model="user" label-width="80px" style="margin-top: 10px;">
         <el-form-item label="用户名">
-          <el-input :disabled="user.type!=='addUser'" v-model="user.username"></el-input>
+          <el-input :disabled="user.type==='addUser'?false:true" v-model="user.username"></el-input>
         </el-form-item>
         <el-form-item label="密码">
           <el-input v-model="user.password"></el-input>

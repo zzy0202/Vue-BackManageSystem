@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <el-row class="tac">
-      <el-col style="width: 100%">
+  <div style="height: 100%">
+    <el-row class="tac" style="height: 100%">
+      <el-col>
         <el-menu
             :default-active="currentActive.toString()"
             class="el-menu-vertical-demo"
@@ -45,6 +45,9 @@ export default {
       else if(to===2) {
         this.$router.push({name:"UserManage"});
       }
+      else {
+        this.$router.push({name:"ProductManage"});
+      }
     }
   },
   watch:{
@@ -70,6 +73,10 @@ export default {
 
 span {
   font-size: 15.5px;
+}
+
+.tac {
+  background-color:rgb(5,21,42);
 }
 
 .el-menu-item {

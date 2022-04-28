@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from "@/views/Login";
 import HomeMain from "@/components/Home/HomeMain";
 import UserManage from "@/views/UserManage";
+import ProductManage from "@/views/ProductManage";
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,10 @@ const routes = [
       path: 'userManage',
       name: 'UserManage',
       component: UserManage,
+    },{
+      path: 'productManage',
+      name:'ProductManage',
+      component: ProductManage
     }],
     meta:{requiredLogin:true},
   },
@@ -30,7 +35,7 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
-  }
+  },
 ]
 
 const router = new VueRouter({

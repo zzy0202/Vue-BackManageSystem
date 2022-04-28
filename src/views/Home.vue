@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <el-container>
-      <el-aside  ref="aside" :width="width">
+      <el-aside ref="aside" :width="width">
         <HomeAside></HomeAside>
       </el-aside>
       <el-container>
@@ -21,20 +21,21 @@ import HomeAside from "@/components/Home/HomeAside";
 import HomeHeader from "@/components/Home/HomeHeader";
 import HomeMain from "@/components/Home/HomeMain";
 import UserManage from "@/views/UserManage";
+
 export default {
   name: 'Home',
   components: {
     HomeMain,
-    HomeAside,HomeHeader,UserManage
+    HomeAside, HomeHeader, UserManage
   },
   data() {
     return {
-      width:'200',
+      width: '200',
     }
   },
   mounted() {
-    this.$EventBus.$on('collapse',(isCollapse)=>{
-      this.width = isCollapse?'64':'200';
+    this.$EventBus.$on('collapse', (isCollapse) => {
+      this.width = isCollapse ? '64' : '200';
     })
   },
 }
@@ -46,11 +47,11 @@ export default {
   color: #333;
   text-align: center;
 }
+
 .el-aside {
   background-color: #D3DCE6;
   color: #333;
   text-align: center;
-  height: 100%;
 }
 
 .el-main {
