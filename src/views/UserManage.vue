@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <transition name="fade">
-      <Modal v-if="showModal" :userInfo="userInfo" class="modal" @cancelChange="cancelChange" @addSuccess="refresh"></Modal>
+      <Modal v-if="showModal" :userInfo="userInfo" class="modal" @cancelChange="cancelChange" @refresh="refresh"></Modal>
     </transition>
     <el-button type="primary" @click="showModalMethod('add')" style="margin: 10px 10px;">添加用户</el-button>
     <div>
@@ -70,9 +70,9 @@
 </template>
 
 <script>
-import {getUserInfo} from "@/api/UserManageApi";
-import {deleteUser} from "@/api/UserManageApi";
+import {deleteUser, getUserInfo} from "@/api/UserManageApi";
 import Modal from "@/components/Modal";
+
 export default {
   name: "UserManage",
   components: {Modal},
@@ -92,7 +92,7 @@ export default {
   methods: {
     showModalMethod(type){
       if(type==='add') {
-        this.userInfo = {type:'reg'};
+        this.userInfo = {type:'addUser'};
         this.showModal = true;
       }
     },
@@ -111,7 +111,9 @@ export default {
       this.isLoading = false;
     },
     handleEdit(index, row) {
-      this.userInfo = row;
+      console.log(row);
+      this.userInfo = {...row};
+      this.userInfo.type='changeInfo';
       this.showModal = true;
     },
     handleDelete(index, row) {

@@ -4,6 +4,7 @@ let api = {
 	getUserInfo: '/admin/user/userlist',
 	deleteUser: '/admin/user/deluser',
 	addUser: '/admin/user/addUser',
+	updateUser: '/admin/user/updateUser',
 }
 
 const getUserInfo = (params) => {
@@ -24,12 +25,20 @@ const deleteUser = (params) => {
 
 const addUser = (data) => {
 	return request({
-		url:api.addUser,
+		url: api.addUser,
+		method: "POST",
+		data,
+	})
+}
+
+const updateUser = (data) => {
+	return request({
+		url:api.updateUser,
 		method:"POST",
 		data,
 	})
 }
 
 export {
-	getUserInfo, deleteUser, addUser,
+	getUserInfo, deleteUser, addUser,updateUser,
 }
