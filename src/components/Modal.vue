@@ -1,36 +1,30 @@
 <template>
   <div class="main">
     <div class="content">
-      <div style="margin-top: 30px;">
-        <span>用户id</span>
-        <el-input
-            v-model="userInfo.id"
-            :disabled="true">
-        </el-input>
-      </div>
-      <div>
-        <span>用户名</span>
-        <el-input
-            v-model="userInfo.username"
-            >
-        </el-input>
-      </div>
-      <div>
-        <span>积分</span>
-        <el-input
-            v-model="userInfo.score"
-        >
-        </el-input>
-      </div>
-      <div>
-        <span>注册时间</span>
-        <el-input
-            v-model="userInfo.score"
-            :disabled="true">
-        </el-input>
-      </div>
-      <div style="margin-top: 40px;">
-        <el-button type="primary">确定修改</el-button>
+      <span class="title">新增用户</span>
+      <el-form ref="form" :model="userInfo" label-width="80px" style="margin-top: 10px;">
+        <el-form-item label="用户名">
+          <el-input v-model="userInfo.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="userInfo.password"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="userInfo.email"></el-input>
+        </el-form-item>
+        <el-form-item label="用户角色">
+          <el-select v-model="userInfo.role_id" placeholder="请选择用户角色">
+            <el-option label="admin" :value="0"></el-option>
+            <el-option label="Svip" :value="1"></el-option>
+            <el-option label="normal user" :value="2"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="联络号码">
+          <el-input v-model="userInfo.mobile"></el-input>
+        </el-form-item>
+      </el-form>
+      <div style="margin-top: 25px;">
+        <el-button type="primary" @click="addUser">确定增加</el-button>
         <el-button type="info" @click="$emit('cancelChange')">取消修改</el-button>
       </div>
     </div>
@@ -38,11 +32,35 @@
 </template>
 
 <script>
+import {addUser} from "@/api/UserManageApi";
+
 export default {
   name: "Modal",
+  data() {
+    return {}
+  },
+  methods: {
+    onSubmit() {
+
+    },
+    async addUser() {
+      console.log(this.userInfo);
+      let res = await addUser({
+        username: this.userInfo.username,
+        password: this.userInfo.password,
+        email: this.userInfo.email,
+        mobile: this.userInfo.mobile,
+        role_id: this.userInfo.role_id,
+      })
+      if (res.msg === '添加成功') {
+        this.$alert(res.msg);
+        this.$emit('addSuccess');
+      }
+    }
+  },
   props: ['userInfo'],
   mounted() {
-    console.log(this.userInfo);
+
   }
 }
 </script>
@@ -60,8 +78,17 @@ export default {
   left: 0;
 }
 
+.title {
+  width: 100%;
+  border-bottom: 1px solid lightgrey;
+  text-align: center;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+}
+
 .content {
-  width: 400px;
+  width: 450px;
   height: 500px;
   background-color: white;
   display: flex;

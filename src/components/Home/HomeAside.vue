@@ -50,8 +50,6 @@ export default {
   watch:{
     $route:{
       handler(newRouter,oldRouter) {
-        console.log('new',newRouter);
-        console.log('old',oldRouter);
         this.currentActive = this.pathArr.indexOf(newRouter.name)+1;
       },
       immediate:true,

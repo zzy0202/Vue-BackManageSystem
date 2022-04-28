@@ -1,11 +1,12 @@
 <template>
   <div class="main">
     <transition name="fade">
-      <Modal v-if="showModal" :userInfo="userInfo" class="modal" @cancelChange="cancelChange"></Modal>
+      <Modal v-if="showModal" :userInfo="userInfo" class="modal" @cancelChange="cancelChange" @addSuccess="refresh"></Modal>
     </transition>
-    <el-button type="primary" style="margin: 10px 10px;">添加用户</el-button>
+    <el-button type="primary" @click="showModalMethod('add')" style="margin: 10px 10px;">添加用户</el-button>
     <div>
       <el-table
+          ref="table"
           v-loading="isLoading"
           :data="userList"
           style="width: 100%">
@@ -15,7 +16,7 @@
             prop="id">
         </el-table-column>
         <el-table-column
-            width="300"
+            width="250"
             label="注册日期"
             :formatter="formatTime"
             prop="reg_time">
@@ -30,8 +31,13 @@
             prop="score">
         </el-table-column>
         <el-table-column
+            label="邮箱"
+            width="300"
+            prop="email">
+        </el-table-column>
+        <el-table-column
             label="联络方式"
-            width="400"
+            width="200"
             prop="mobile">
         </el-table-column>
         <el-table-column
@@ -84,6 +90,12 @@ export default {
     this.loadUser(1);
   },
   methods: {
+    showModalMethod(type){
+      if(type==='add') {
+        this.userInfo = {type:'reg'};
+        this.showModal = true;
+      }
+    },
     formatTime(row,column) {
       let timeScroll = new Date(row.reg_time);
       let year = timeScroll.getFullYear();
@@ -116,6 +128,10 @@ export default {
     },
     cancelChange() {
       this.showModal = false;
+    },
+    refresh() {
+      this.showModal = false;
+      this.loadUser(this.currentPage);
     }
   }
 }
